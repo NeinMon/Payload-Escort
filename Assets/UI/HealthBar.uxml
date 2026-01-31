@@ -1,0 +1,13 @@
+<!--
+2026-01-14 AI-Tag
+This was created with the help of Assistant, a Unity Artificial Intelligence product.
+-->
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+  <ui:Style src="HealthBar.uss" />
+  <ui:VisualElement name="healthbar-root" class="healthbar-root">
+    <ui:VisualElement name="bar-container" class="bar-container">
+      <ui:VisualElement name="bar-fill" class="bar-fill" />
+    </ui:VisualElement>
+    <ui:Label name="health-text" class="health-text" text="100 / 100" />
+  </ui:VisualElement>
+</ui:UXML>

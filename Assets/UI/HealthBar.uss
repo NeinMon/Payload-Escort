@@ -1,0 +1,46 @@
+/*
+2026-01-14 AI-Tag
+This was created with the help of Assistant, a Unity Artificial Intelligence product.
+*/
+:root {
+    --bar-height: 20px;
+    --bar-width: 200px;
+    --color-bg: #880000;
+    --color-fg: #00cc33;
+    --color-text: #ffffff;
+    --space-sm: 6px;
+}
+
+.healthbar-root {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: var(--space-sm);
+}
+
+.bar-container {
+    position: relative;
+    width: var(--bar-width);
+    height: var(--bar-height);
+    background-color: var(--color-bg);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-right: var(--space-sm);
+}
+
+.bar-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: var(--color-fg);
+    border-radius: 4px;
+    width: 50%; /* placeholder; will be overridden at runtime */
+}
+
+.health-text {
+    color: var(--color-text);
+    font-size: 14px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-left;
+}

@@ -1,0 +1,45 @@
+# Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# Unity generated
+MemoryCaptures/
+
+# Asset meta data should only be ignored when the corresponding asset is ignored
+#
+# Example:
+# Assets/**/Example.asset
+# Assets/**/Example.asset.meta
+
+# Rider
+.idea/
+*.sln.iml
+
+# Visual Studio / VS Code
+.vscode/
+.vs/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Crash reports
+sysinfo.txt
+
+# JetBrains
+*.mdb
