@@ -6,6 +6,10 @@
 [Bb]uilds/
 [Ll]ogs/
 [Uu]ser[Ss]ettings/
+GeneratedAssets/
+UIElementsSchema/
+UpgradeLog.htm
+.vsconfig
 
 # Unity generated
 MemoryCaptures/
