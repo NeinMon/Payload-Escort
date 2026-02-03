@@ -117,7 +117,7 @@ public class TurretAutoAttack : MonoBehaviourPun
     private PlayerHealth FindBestTarget()
     {
         cachedTargets.Clear();
-        PlayerHealth[] players = FindObjectsOfType<PlayerHealth>();
+        PlayerHealth[] players = FindObjectsByType<PlayerHealth>(FindObjectsSortMode.None);
         float bestDistance = float.MaxValue;
         PlayerHealth bestTarget = null;
         float currentRange = CurrentRange;
@@ -260,7 +260,7 @@ public class TurretAutoAttack : MonoBehaviourPun
 
         if (maxTargets <= 1) return targets;
 
-        PlayerHealth[] players = FindObjectsOfType<PlayerHealth>();
+        PlayerHealth[] players = FindObjectsByType<PlayerHealth>(FindObjectsSortMode.None);
         float currentRange = CurrentRange;
         Vector3 origin = muzzle != null ? muzzle.position : transform.position;
 

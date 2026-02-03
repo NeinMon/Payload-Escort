@@ -37,6 +37,9 @@ public class EngineerDeployTurretSkill : HeroSkillBehaviour, IHeroHoldSkill
         if (runtime.GetCooldownRemaining(HeroSkillSlot.E) > 0f)
             return;
 
+        if (HasExistingTurretForOwner(runtime))
+            return;
+
         EngineerTurretState state = runtime.GetComponent<EngineerTurretState>();
         if (state != null && state.HasActiveTurret)
             return;
@@ -80,6 +83,12 @@ public class EngineerDeployTurretSkill : HeroSkillBehaviour, IHeroHoldSkill
         isHolding = false;
 
         if (runtime == null)
+        {
+            DestroyPreview();
+            return;
+        }
+
+        if (HasExistingTurretForOwner(runtime))
         {
             DestroyPreview();
             return;
@@ -255,5 +264,23 @@ public class EngineerDeployTurretSkill : HeroSkillBehaviour, IHeroHoldSkill
         Material mat = new Material(shader);
         mat.color = color;
         return mat;
+    }
+
+    private bool HasExistingTurretForOwner(HeroRuntime runtime)
+    {
+        PhotonView ownerView = runtime.GetComponent<PhotonView>();
+        int ownerActor = ownerView != null ? ownerView.OwnerActorNr : (PhotonNetwork.LocalPlayer != null ? PhotonNetwork.LocalPlayer.ActorNumber : -1);
+        if (ownerActor <= 0) return false;
+
+        TurretOwner[] turrets = FindObjectsByType<TurretOwner>(FindObjectsSortMode.None);
+        for (int i = 0; i < turrets.Length; i++)
+        {
+            TurretOwner turret = turrets[i];
+            if (turret == null) continue;
+            if (turret.OwnerActorNumber == ownerActor)
+                return true;
+        }
+
+        return false;
     }
 }

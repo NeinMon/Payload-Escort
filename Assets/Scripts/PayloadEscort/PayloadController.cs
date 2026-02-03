@@ -88,11 +88,37 @@ public class PayloadController : MonoBehaviourPunCallbacks, IPunObservable
 
         if (PhotonNetwork.IsMasterClient)
         {
+            PruneZoneLists();
             UpdateDisableAndRepair();
             UpdateState();
             MovePayload();
             SyncRoomProperties();
         }
+    }
+
+    void PruneZoneLists()
+    {
+        PlayerHealth[] players = FindObjectsByType<PlayerHealth>(FindObjectsSortMode.None);
+        HashSet<int> aliveActors = new HashSet<int>();
+        for (int i = 0; i < players.Length; i++)
+        {
+            PlayerHealth health = players[i];
+            if (health == null || health.IsDead) continue;
+            PhotonView view = health.GetComponent<PhotonView>();
+            if (view == null || view.Owner == null) continue;
+            aliveActors.Add(view.OwnerActorNr);
+        }
+
+        RemoveMissing(attackersInZone, aliveActors);
+        RemoveMissing(defendersInZone, aliveActors);
+        RemoveMissing(repairingAttackers, aliveActors);
+        RemoveMissing(sabotagingDefenders, aliveActors);
+    }
+
+    void RemoveMissing(HashSet<int> set, HashSet<int> aliveActors)
+    {
+        if (set.Count == 0) return;
+        set.RemoveWhere(actor => !aliveActors.Contains(actor));
     }
 
     void CachePathData()
