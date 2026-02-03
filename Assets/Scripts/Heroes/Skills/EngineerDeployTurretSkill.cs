@@ -3,6 +3,7 @@ using Photon.Pun;
 
 public class EngineerDeployTurretSkill : HeroSkillBehaviour, IHeroHoldSkill
 {
+    private const string SkillId = "engineer_deploy_turret";
     [Header("Turret Prefab")]
     [Tooltip("Prefab name inside Resources (e.g., TurretPrefab)")]
     public string turretResourceName = "Turret";
@@ -30,9 +31,17 @@ public class EngineerDeployTurretSkill : HeroSkillBehaviour, IHeroHoldSkill
         // Not used: hold-to-place uses BeginHold/EndHold.
     }
 
+    public bool CanHold(HeroRuntime runtime)
+    {
+        return IsCorrectSkill(runtime);
+    }
+
     public void BeginHold(HeroRuntime runtime)
     {
         if (runtime == null) return;
+
+        if (!IsCorrectSkill(runtime))
+            return;
 
         if (runtime.GetCooldownRemaining(HeroSkillSlot.E) > 0f)
             return;
@@ -83,6 +92,12 @@ public class EngineerDeployTurretSkill : HeroSkillBehaviour, IHeroHoldSkill
         isHolding = false;
 
         if (runtime == null)
+        {
+            DestroyPreview();
+            return;
+        }
+
+        if (!IsCorrectSkill(runtime))
         {
             DestroyPreview();
             return;
@@ -282,5 +297,11 @@ public class EngineerDeployTurretSkill : HeroSkillBehaviour, IHeroHoldSkill
         }
 
         return false;
+    }
+
+    private bool IsCorrectSkill(HeroRuntime runtime)
+    {
+        HeroSkillDefinition def = runtime.GetSkill(HeroSkillSlot.E);
+        return def != null && def.skillId == SkillId;
     }
 }

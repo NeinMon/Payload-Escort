@@ -101,7 +101,7 @@ text
 • Thời gian cast: 0.5 giây
 
 🎯 CÁCH HOẠT ĐỘNG:
-- Nhấn E để đập mạnh xuống đất
+- Nhấn E để đẩy lùi tất cả kẻ địch
 - Gây sát thương và đẩy lùi tất cả kẻ địch trong phạm vi
 - Có thể bị hủy nếu bị CC trong lúc cast
 - Hiệu ứng visual: Vụ nổ đất đá từ điểm đập

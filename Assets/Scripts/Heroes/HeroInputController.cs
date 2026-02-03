@@ -45,30 +45,30 @@ public class HeroInputController : MonoBehaviour
 
         if (Input.GetKeyDown(skillQ))
         {
-            if (holdQ != null)
+            if (holdQ != null && holdQ.CanHold(heroRuntime))
                 holdQ.BeginHold(heroRuntime);
             else
                 heroRuntime.TryActivateSkill(HeroSkillSlot.Q);
         }
 
-        if (Input.GetKey(skillQ) && holdQ != null)
+        if (Input.GetKey(skillQ) && holdQ != null && holdQ.CanHold(heroRuntime))
             holdQ.UpdateHold(heroRuntime);
 
-        if (Input.GetKeyUp(skillQ) && holdQ != null)
+        if (Input.GetKeyUp(skillQ) && holdQ != null && holdQ.CanHold(heroRuntime))
             holdQ.EndHold(heroRuntime);
 
         if (Input.GetKeyDown(skillE))
         {
-            if (holdE != null)
+            if (holdE != null && holdE.CanHold(heroRuntime))
                 holdE.BeginHold(heroRuntime);
             else
                 heroRuntime.TryActivateSkill(HeroSkillSlot.E);
         }
 
-        if (Input.GetKey(skillE) && holdE != null)
+        if (Input.GetKey(skillE) && holdE != null && holdE.CanHold(heroRuntime))
             holdE.UpdateHold(heroRuntime);
 
-        if (Input.GetKeyUp(skillE) && holdE != null)
+        if (Input.GetKeyUp(skillE) && holdE != null && holdE.CanHold(heroRuntime))
             holdE.EndHold(heroRuntime);
 
         if (Input.GetKeyDown(skillR))
