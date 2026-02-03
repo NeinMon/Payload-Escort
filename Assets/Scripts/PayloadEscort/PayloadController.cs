@@ -26,10 +26,10 @@ public class PayloadController : MonoBehaviourPunCallbacks, IPunObservable
 
     [Header("Sabotage & Repair")]
     public bool enableSabotage = true;
-    public float sabotageHoldTime = 2f;
+    public float sabotageHoldTime = 8f;
     public float sabotageDisableDuration = 5f;
     public float sabotagePushDistance = 2f;
-    public float repairDuration = 3f;
+    public float repairDuration = 10f;
     public bool autoRecoverWhenDisabled = false;
 
     [Header("Checkpoint")]
@@ -52,6 +52,7 @@ public class PayloadController : MonoBehaviourPunCallbacks, IPunObservable
     public bool IsDisabled => isDisabled;
     public float SabotageProgress => Mathf.Clamp01(sabotageProgress);
     public float RepairProgress => Mathf.Clamp01(repairProgress);
+    public bool LocalPlayerInZone { get; private set; }
 
     private readonly HashSet<int> attackersInZone = new HashSet<int>();
     private readonly HashSet<int> defendersInZone = new HashSet<int>();
@@ -261,6 +262,11 @@ public class PayloadController : MonoBehaviourPunCallbacks, IPunObservable
         photonView.RPC("RPC_UpdateZone", RpcTarget.MasterClient, actorNumber, isInside);
     }
 
+    public void SetLocalPlayerInZone(bool isInside)
+    {
+        LocalPlayerInZone = isInside;
+    }
+
     public void ReportRepairStatus(int actorNumber, bool isRepairing)
     {
         photonView.RPC("RPC_UpdateRepair", RpcTarget.MasterClient, actorNumber, isRepairing);
@@ -327,6 +333,10 @@ public class PayloadController : MonoBehaviourPunCallbacks, IPunObservable
                     repairProgress = 0f;
                     sabotageProgress = 0f;
                 }
+            }
+            else
+            {
+                repairProgress = 0f;
             }
 
             if (autoRecoverWhenDisabled && Time.time >= disabledUntilTime)
@@ -413,12 +423,18 @@ public class PayloadController : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(transform.position);
             stream.SendNext(currentDistance);
             stream.SendNext((int)CurrentState);
+            stream.SendNext(isDisabled);
+            stream.SendNext(sabotageProgress);
+            stream.SendNext(repairProgress);
         }
         else
         {
             transform.position = (Vector3)stream.ReceiveNext();
             currentDistance = (float)stream.ReceiveNext();
             CurrentState = (PayloadState)(int)stream.ReceiveNext();
+            isDisabled = (bool)stream.ReceiveNext();
+            sabotageProgress = (float)stream.ReceiveNext();
+            repairProgress = (float)stream.ReceiveNext();
         }
     }
 }

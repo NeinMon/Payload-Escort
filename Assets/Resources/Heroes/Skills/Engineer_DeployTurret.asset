@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a912809af7c10444b9f0fcb8ba86579b, type: 3}
+  m_Name: Engineer_DeployTurret
+  m_EditorClassIdentifier: Assembly-CSharp::HeroSkillDefinition
+  skillId: engineer_deploy_turret
+  displayName: Deploy Turret
+  slot: 1
+  cooldownSeconds: 15
+  durationSeconds: 2
+  isPassive: 0
+  description: "\u0110\u1EB7t turret t\u1EF1 \u0111\u1ED9ng b\u1EAFn trong t\u1EA7m
+    20m. HP 250, 30 DPS."
+  inputHint: E

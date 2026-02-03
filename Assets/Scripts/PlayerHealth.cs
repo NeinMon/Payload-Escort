@@ -13,6 +13,7 @@ public class PlayerHealth : MonoBehaviourPunCallbacks
     private FPSController controller;
     private Transform playerCamera;
     private int lastAttackerID = -1; // Track who killed this player
+    private bool isDead = false;
 
     void Start()
     {
@@ -84,6 +85,9 @@ public class PlayerHealth : MonoBehaviourPunCallbacks
     [PunRPC]
     void Die()
     {
+        if (isDead) return;
+        isDead = true;
+
         Debug.Log($"{gameObject.name} died. Owner: {photonView.Owner?.NickName}");
 
         SciFiWarriorAnimator warriorAnimator = GetComponent<SciFiWarriorAnimator>();
@@ -92,8 +96,7 @@ public class PlayerHealth : MonoBehaviourPunCallbacks
             warriorAnimator.PlayDie();
         }
 
-        if (controller != null)
-            controller.enabled = false;
+        DisablePlayerActions(warriorAnimator);
 
         if (playerCamera != null)
             playerCamera.gameObject.SetActive(false);
@@ -103,6 +106,46 @@ public class PlayerHealth : MonoBehaviourPunCallbacks
         {
             StartCoroutine(RespawnCoroutine());
         }
+    }
+
+    void DisablePlayerActions(SciFiWarriorAnimator warriorAnimator)
+    {
+        CharacterController characterController = GetComponent<CharacterController>();
+        if (characterController != null)
+            characterController.enabled = false;
+
+        if (controller != null)
+            controller.enabled = false;
+
+        PlayerControllerNetwork playerControllerNetwork = GetComponent<PlayerControllerNetwork>();
+        if (playerControllerNetwork != null)
+            playerControllerNetwork.enabled = false;
+
+        WeaponManager weaponManager = GetComponentInChildren<WeaponManager>(true);
+        if (weaponManager != null)
+            weaponManager.enabled = false;
+
+        WeaponBase[] weapons = GetComponentsInChildren<WeaponBase>(true);
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (weapons[i] != null)
+                weapons[i].enabled = false;
+        }
+
+        UpperBodyAim upperBodyAim = GetComponentInChildren<UpperBodyAim>(true);
+        if (upperBodyAim != null)
+            upperBodyAim.enabled = false;
+
+        LocalCameraPitchFollower pitchFollower = GetComponentInChildren<LocalCameraPitchFollower>(true);
+        if (pitchFollower != null)
+            pitchFollower.enabled = false;
+
+        WeaponCameraAligner weaponCameraAligner = GetComponentInChildren<WeaponCameraAligner>(true);
+        if (weaponCameraAligner != null)
+            weaponCameraAligner.enabled = false;
+
+        if (warriorAnimator != null)
+            warriorAnimator.enabled = false;
     }
 
     IEnumerator RespawnCoroutine()
@@ -148,4 +191,22 @@ public class PlayerHealth : MonoBehaviourPunCallbacks
     public float CurrentHealth => currentHealth;
     public float MaxHealth => maxHealth;
     public float GetHealthRatio() => currentHealth / maxHealth;
+    public bool IsDead => isDead;
+
+    public void SetMaxHealth(float newMaxHealth, bool healToFull)
+    {
+        maxHealth = Mathf.Max(1f, newMaxHealth);
+
+        if (healToFull)
+        {
+            currentHealth = maxHealth;
+        }
+        else
+        {
+            currentHealth = Mathf.Min(currentHealth, maxHealth);
+        }
+
+        if (photonView != null)
+            photonView.RPC("SyncHealth", RpcTarget.All, currentHealth);
+    }
 }

@@ -123,6 +123,39 @@ public class RaycastGun : WeaponBase
                 
                 Debug.Log($"[RaycastGun] Damaged {targetPhotonView.Owner.NickName} for {damage} damage");
             }
+
+            TurretHealth turretHealth = hit.transform.GetComponentInParent<TurretHealth>();
+            if (turretHealth != null)
+            {
+                bool allowDamage = true;
+                TurretOwner turretOwner = turretHealth.GetComponent<TurretOwner>();
+
+                if (turretOwner != null)
+                {
+                    if (turretOwner.OwnerActorNumber == photonView.Owner.ActorNumber)
+                        allowDamage = false;
+
+                    if (allowDamage && turretOwner.HasOwnerTeam && PayloadTeamUtils.TryGetPlayerTeam(photonView.Owner, out PayloadTeam shooterTeam))
+                    {
+                        if (shooterTeam == turretOwner.OwnerTeam)
+                            allowDamage = false;
+                    }
+                }
+
+                if (allowDamage)
+                {
+                    PhotonView turretView = turretHealth.GetComponent<PhotonView>();
+                    int attackerID = photonView.Owner.ActorNumber;
+                    if (turretView != null && PhotonNetwork.InRoom)
+                        turretView.RPC("TakeDamageFromPlayer", RpcTarget.All, damage, attackerID);
+                    else
+                        turretHealth.TakeDamageFromPlayer(damage, attackerID);
+
+                    LocalPlayerHUD hud = GetComponentInParent<LocalPlayerHUD>();
+                    if (hud != null)
+                        hud.ShowHitmarker();
+                }
+            }
             
             // Show bullet trail
             if (bulletTrail != null)

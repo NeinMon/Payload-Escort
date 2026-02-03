@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a912809af7c10444b9f0fcb8ba86579b, type: 3}
+  m_Name: Heavy_FortifyStance
+  m_EditorClassIdentifier: Assembly-CSharp::HeroSkillDefinition
+  skillId: heavy_fortify_stance
+  displayName: Fortify Stance
+  slot: 0
+  cooldownSeconds: 14
+  durationSeconds: 4
+  isPassive: 0
+  description: "Gi\u1EA3m 50% s\xE1t th\u01B0\u01A1ng, gi\u1EA3m 70% knockback, -15%
+    t\u1ED1c \u0111\u1ED9."
+  inputHint: Q

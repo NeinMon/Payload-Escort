@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a912809af7c10444b9f0fcb8ba86579b, type: 3}
+  m_Name: Disruptor_KineticField
+  m_EditorClassIdentifier: Assembly-CSharp::HeroSkillDefinition
+  skillId: disruptor_kinetic_field
+  displayName: Kinetic Field
+  slot: 1
+  cooldownSeconds: 18
+  durationSeconds: 8
+  isPassive: 0
+  description: "D\u1EF1ng tr\u01B0\u1EDDng l\u1EF1c 5m ch\u1EB7n di chuy\u1EC3n trong
+    8s, HP 300."
+  inputHint: E

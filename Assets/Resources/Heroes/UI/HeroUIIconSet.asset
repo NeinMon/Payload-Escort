@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d20b401738410b4698d0bb23a4a117d, type: 3}
+  m_Name: HeroUIIconSet
+  m_EditorClassIdentifier: Assembly-CSharp::HeroUIIconSet
+  healthBarFill: {fileID: 21300000, guid: e6fb0753104fd3b4bbc1d1ad027bc23f, type: 3}
+  healthBarBackground: {fileID: 21300000, guid: 358e58a6099d7c64a83b73e6a9eaa64e, type: 3}
+  roles:
+  - role: 1
+    heroIcon: {fileID: 21300000, guid: 1a7364e42269a354a873987eb3a653b7, type: 3}
+    skillQ: {fileID: 21300000, guid: fcc5ec7a7a5b0a9458c12dfb459861da, type: 3}
+    skillE: {fileID: 21300000, guid: 6be3a88880ac0df4c8c3ab88bdaf5da3, type: 3}
+    skillR: {fileID: 21300000, guid: 97ab968b8c3ae3e469188aaec222d247, type: 3}
+  - role: 2
+    heroIcon: {fileID: 21300000, guid: abe230cbeed77bf47a41f993718930d9, type: 3}
+    skillQ: {fileID: 21300000, guid: ab1d85706b6005f45bf97be003c94404, type: 3}
+    skillE: {fileID: 21300000, guid: fdb1bad0289b3994eaf923a90a16688f, type: 3}
+    skillR: {fileID: 21300000, guid: c41989469efdb7d478c0204a69422f7d, type: 3}
+  - role: 3
+    heroIcon: {fileID: 21300000, guid: 301292ea45860ad4697a1bf428043f11, type: 3}
+    skillQ: {fileID: 21300000, guid: 39fc282ed1b2d9d4084347fc8020d636, type: 3}
+    skillE: {fileID: 21300000, guid: 3eb5349fc1b45c047943d775a19a18bd, type: 3}
+    skillR: {fileID: 21300000, guid: c069d64bc4ad59040bcfc7cbbca67e1b, type: 3}
+  - role: 4
+    heroIcon: {fileID: 21300000, guid: 7c3b364693661fb4f95d1cd4b2a5a873, type: 3}
+    skillQ: {fileID: 21300000, guid: 28c78e7ba05d7b147b171de8a7891a65, type: 3}
+    skillE: {fileID: 21300000, guid: 3e2ec61060824504085e67cc2eadf3a3, type: 3}
+    skillR: {fileID: 21300000, guid: ef9ac8205210df94496422d05ea25cef, type: 3}

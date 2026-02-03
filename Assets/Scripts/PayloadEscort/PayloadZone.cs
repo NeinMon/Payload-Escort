@@ -5,8 +5,7 @@ using Photon.Pun;
 public class PayloadZone : MonoBehaviour
 {
     public PayloadController payloadController;
-    public KeyCode repairKey = KeyCode.E;
-    public KeyCode sabotageKey = KeyCode.F;
+    public KeyCode interactKey = KeyCode.F;
 
     private bool localInside;
     private PhotonView localView;
@@ -26,6 +25,7 @@ public class PayloadZone : MonoBehaviour
         if (view == null || !view.IsMine) return;
         localView = view;
         localInside = true;
+        payloadController.SetLocalPlayerInZone(true);
         payloadController.ReportPlayerZoneStatus(view.OwnerActorNr, true);
     }
 
@@ -42,6 +42,7 @@ public class PayloadZone : MonoBehaviour
         }
         lastRepairing = false;
         lastSabotaging = false;
+        payloadController.SetLocalPlayerInZone(false);
         payloadController.ReportPlayerZoneStatus(view.OwnerActorNr, false);
     }
 
@@ -53,7 +54,7 @@ public class PayloadZone : MonoBehaviour
 
         if (team == PayloadTeam.Attackers)
         {
-            bool repairing = Input.GetKey(repairKey);
+            bool repairing = Input.GetKey(interactKey);
             if (repairing != lastRepairing)
             {
                 payloadController.ReportRepairStatus(localView.OwnerActorNr, repairing);
@@ -62,7 +63,7 @@ public class PayloadZone : MonoBehaviour
         }
         else
         {
-            bool sabotaging = Input.GetKey(sabotageKey);
+            bool sabotaging = Input.GetKey(interactKey);
             if (sabotaging != lastSabotaging)
             {
                 payloadController.ReportSabotageStatus(localView.OwnerActorNr, sabotaging);

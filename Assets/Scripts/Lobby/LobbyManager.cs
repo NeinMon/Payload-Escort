@@ -23,6 +23,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public TextMeshProUGUI statusText;
     public TextMeshProUGUI playersText;
 
+    [Header("Hero Preview (Optional)")]
+    public TextMeshProUGUI heroNameText;
+    public TextMeshProUGUI heroInfoText;
+    public TextMeshProUGUI heroSkillsText;
+
+    [Header("Heroes")]
+    public HeroRoster heroRoster;
+
     private bool localReady;
 
     private const string READY_KEY = "Ready";
@@ -195,6 +203,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         SetStatus("In Room. Choose team/role and Ready.");
         ApplyCurrentSelections();
+        UpdateHeroPreview();
         UpdatePlayersList();
         UpdatePlayButton();
     }
@@ -225,6 +234,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     void OnRoleChanged(int index)
     {
         ApplyRoleSelection(index);
+        UpdateHeroPreview();
     }
 
     void ApplyCurrentSelections()
@@ -266,6 +276,45 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         PlayerRoleUtils.SetPlayerRole(PhotonNetwork.LocalPlayer, role);
     }
+
+    void UpdateHeroPreview()
+    {
+        if (heroRoster == null || roleDropdown == null) return;
+
+        PlayerRole role = PlayerRole.Engineer;
+        switch (roleDropdown.value)
+        {
+            case 1: role = PlayerRole.Engineer; break;
+            case 2: role = PlayerRole.Heavy; break;
+            case 3: role = PlayerRole.Medic; break;
+            case 4: role = PlayerRole.Saboteur; break;
+        }
+
+        if (!heroRoster.TryGetLoadoutByRole(role, out HeroRoster.HeroLoadout loadout) || loadout == null)
+            return;
+
+        if (heroNameText != null && loadout.heroDefinition != null)
+            heroNameText.text = loadout.heroDefinition.displayName;
+
+        if (heroInfoText != null && loadout.heroDefinition != null)
+        {
+            heroInfoText.text = $"HP: {loadout.heroDefinition.maxHealth}\nSpeed: {loadout.heroDefinition.moveSpeed}";
+        }
+
+        if (heroSkillsText != null && loadout.skills != null)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            for (int i = 0; i < loadout.skills.Length; i++)
+            {
+                HeroSkillDefinition skill = loadout.skills[i];
+                if (skill == null) continue;
+                string keyHint = skill.slot == HeroSkillSlot.R ? "X" : skill.inputHint;
+                sb.AppendLine($"{keyHint} - {skill.displayName}");
+            }
+            heroSkillsText.text = sb.ToString();
+        }
+    }
+
 
     void ToggleReady()
     {

@@ -80,8 +80,8 @@ public class PayloadEscortHUD : MonoBehaviour
 
         if (payloadStatusText != null)
         {
-            if (payloadController.IsDisabled && hasTeam && localTeam == PayloadTeam.Attackers)
-                payloadStatusText.text = "Payload Disabled - Hold E to Repair";
+            if (payloadController.IsDisabled && hasTeam && localTeam == PayloadTeam.Attackers && payloadController.LocalPlayerInZone)
+                payloadStatusText.text = "Payload Disabled - Hold F to Repair";
             else if (payloadController.SabotageProgress > 0f && hasTeam && localTeam == PayloadTeam.Defenders)
                 payloadStatusText.text = "Sabotaging Payload...";
             else

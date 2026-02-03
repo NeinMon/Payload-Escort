@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5307f6b68b29aa409c1c5c7f14827b6, type: 3}
+  m_Name: HeroRoster
+  m_EditorClassIdentifier: Assembly-CSharp::HeroRoster
+  loadouts:
+  - heroId: engineer
+    role: 1
+    heroDefinition: {fileID: 11400000, guid: 20ba75c4d520f7448bba86c578d6091d, type: 2}
+    skills:
+    - {fileID: 11400000, guid: c00cd7daac0466348b9202c3ffc06809, type: 2}
+    - {fileID: 11400000, guid: 11c04782e81dcd74f9050de5ea108d7d, type: 2}
+    - {fileID: 11400000, guid: 6a4f5ea80b711f944aef2009cf41b35e, type: 2}
+  - heroId: heavy
+    role: 2
+    heroDefinition: {fileID: 11400000, guid: 14af56d3980518844a50083609dbfb2c, type: 2}
+    skills:
+    - {fileID: 11400000, guid: 7cdd71101a4e3a94ab01b4811bf9ef03, type: 2}
+    - {fileID: 11400000, guid: 7a5779dd946b15545965767a00c4cd47, type: 2}
+    - {fileID: 11400000, guid: 8a102afa6a9a3dc418ec83c2ab0748ef, type: 2}
+  - heroId: medic
+    role: 3
+    heroDefinition: {fileID: 11400000, guid: 6036eaf980eb81547bb5893d62a4b22e, type: 2}
+    skills:
+    - {fileID: 11400000, guid: fc7a8e38e370d414399d6a5021739187, type: 2}
+    - {fileID: 11400000, guid: 822c2e6cd3e683b419a2baead723187e, type: 2}
+    - {fileID: 11400000, guid: f0c6025a33e39f64ea440ad6fde13d70, type: 2}
+  - heroId: disruptor
+    role: 4
+    heroDefinition: {fileID: 11400000, guid: 8f8a7a302121f7047811cedfaccd32a7, type: 2}
+    skills:
+    - {fileID: 11400000, guid: 2e2440d3bd1881d4aaa8ef8a871ec031, type: 2}
+    - {fileID: 11400000, guid: 7338ae91335e84b4cba547a322939c7e, type: 2}
+    - {fileID: 11400000, guid: ef76578176825a449a3ce2487c4398de, type: 2}

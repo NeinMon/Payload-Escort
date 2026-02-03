@@ -52,6 +52,9 @@ MonoBehaviour:
   - RPC_UpdateSabotage
   - RPC_PlayState
   - RPC_SetPitch
+  - RPC_PlayAttackFx
+  - RPC_SyncAim
+  - RPC_StopAttackFx
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

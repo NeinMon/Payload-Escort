@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f958e3e47948d504b82f1f513dee255f, type: 3}
+  m_Name: Heavy
+  m_EditorClassIdentifier: Assembly-CSharp::HeroDefinition
+  heroId: heavy
+  displayName: Heavy
+  role: 1
+  maxHealth: 300
+  moveSpeed: 4
+  sprintMultiplier: 1.5
+  tagline: "\xC1p \u0111\u1EA3o b\u1EB1ng s\u1EE9c m\u1EA1nh, th\u1EAFng b\u1EB1ng
+    \xFD ch\xED."
