@@ -1,9 +1,11 @@
 using UnityEngine;
 
-public class EngineerTurretOverdriveSkill : HeroSkillBehaviour
+public class EngineerTurretOverdriveSkill : HeroSkillBehaviour, IHeroSkillId
 {
-    private const string SkillId = "engineer_turret_overdrive";
+    private const string SkillIdConst = "engineer_turret_overdrive";
     public float overdriveDuration = 12f;
+
+    public string SkillId => SkillIdConst;
 
     public override void Activate(HeroRuntime runtime)
     {
@@ -25,6 +27,6 @@ public class EngineerTurretOverdriveSkill : HeroSkillBehaviour
     private bool IsCorrectSkill(HeroRuntime runtime)
     {
         HeroSkillDefinition def = runtime.GetSkill(HeroSkillSlot.R);
-        return def != null && def.skillId == SkillId;
+        return def != null && def.skillId == SkillIdConst;
     }
 }

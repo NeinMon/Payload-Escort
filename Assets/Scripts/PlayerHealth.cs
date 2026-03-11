@@ -14,6 +14,7 @@ public class PlayerHealth : MonoBehaviourPunCallbacks
     private Transform playerCamera;
     private int lastAttackerID = -1; // Track who killed this player
     private bool isDead = false;
+    private Coroutine respawnRoutine;
 
     void Start()
     {
@@ -104,7 +105,7 @@ public class PlayerHealth : MonoBehaviourPunCallbacks
         // Each player handles their own respawn
         if (photonView.IsMine)
         {
-            StartCoroutine(RespawnCoroutine());
+            respawnRoutine = StartCoroutine(RespawnCoroutine());
         }
     }
 
@@ -172,6 +173,65 @@ public class PlayerHealth : MonoBehaviourPunCallbacks
         // Spawn new player
         PhotonNetwork.Instantiate("Player", spawnPos, spawnRot);
         Debug.Log($"Respawned player {PhotonNetwork.LocalPlayer.NickName} at {spawnPos}");
+    }
+
+    [PunRPC]
+    public void Revive(float healthRatio)
+    {
+        if (!isDead) return;
+
+        isDead = false;
+
+        if (respawnRoutine != null)
+        {
+            StopCoroutine(respawnRoutine);
+            respawnRoutine = null;
+        }
+
+        if (playerCamera != null)
+            playerCamera.gameObject.SetActive(true);
+
+        CharacterController characterController = GetComponent<CharacterController>();
+        if (characterController != null)
+            characterController.enabled = true;
+
+        if (controller != null)
+            controller.enabled = true;
+
+        PlayerControllerNetwork playerControllerNetwork = GetComponent<PlayerControllerNetwork>();
+        if (playerControllerNetwork != null)
+            playerControllerNetwork.enabled = true;
+
+        WeaponManager weaponManager = GetComponentInChildren<WeaponManager>(true);
+        if (weaponManager != null)
+            weaponManager.enabled = true;
+
+        WeaponBase[] weapons = GetComponentsInChildren<WeaponBase>(true);
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (weapons[i] != null)
+                weapons[i].enabled = true;
+        }
+
+        UpperBodyAim upperBodyAim = GetComponentInChildren<UpperBodyAim>(true);
+        if (upperBodyAim != null)
+            upperBodyAim.enabled = true;
+
+        LocalCameraPitchFollower pitchFollower = GetComponentInChildren<LocalCameraPitchFollower>(true);
+        if (pitchFollower != null)
+            pitchFollower.enabled = true;
+
+        WeaponCameraAligner weaponCameraAligner = GetComponentInChildren<WeaponCameraAligner>(true);
+        if (weaponCameraAligner != null)
+            weaponCameraAligner.enabled = true;
+
+        SciFiWarriorAnimator warriorAnimator = GetComponent<SciFiWarriorAnimator>();
+        if (warriorAnimator != null)
+            warriorAnimator.enabled = true;
+
+        currentHealth = Mathf.Max(1f, maxHealth * Mathf.Clamp01(healthRatio));
+        if (photonView != null)
+            photonView.RPC("SyncHealth", RpcTarget.All, currentHealth);
     }
 
     public void Heal(float amount)

@@ -12,3 +12,8 @@ public abstract class HeroSkillBehaviour : MonoBehaviour
 
     public virtual void Deactivate(HeroRuntime runtime) { }
 }
+
+public interface IHeroSkillId
+{
+    string SkillId { get; }
+}

@@ -5,3 +5,7 @@ public interface IHeroHoldSkill
     void UpdateHold(HeroRuntime runtime);
     void EndHold(HeroRuntime runtime);
 }
+
+public interface IHeroManualCooldown
+{
+}

@@ -55,6 +55,12 @@ MonoBehaviour:
   - RPC_PlayAttackFx
   - RPC_SyncAim
   - RPC_StopAttackFx
+  - PlayVfxRpc
+  - RPC_StartTether
+  - RPC_StopTether
+  - RPC_SpawnHealZoneVfx
+  - RPC_SpawnReviveVfx
+  - Revive
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -90,16 +90,24 @@ public class HeroRuntime : MonoBehaviour
         if (GetCooldownRemaining(slot) > 0f)
             return false;
 
-        lastActivatedTime[slot] = Time.time;
-        SkillActivated?.Invoke(def);
-
         if (behaviourBySlot.TryGetValue(slot, out var behaviour) && behaviour != null)
         {
+            if (!(behaviour is IHeroManualCooldown))
+            {
+                lastActivatedTime[slot] = Time.time;
+            }
+
+            SkillActivated?.Invoke(def);
             behaviour.Activate(this);
             if (def.durationSeconds > 0f)
             {
                 StartCoroutine(DeactivateAfterDuration(behaviour, def.durationSeconds));
             }
+        }
+        else
+        {
+            lastActivatedTime[slot] = Time.time;
+            SkillActivated?.Invoke(def);
         }
 
         return true;
@@ -190,6 +198,13 @@ public class HeroRuntime : MonoBehaviour
             var behaviour = behaviours[i];
             if (behaviour == null)
                 continue;
+
+            HeroSkillDefinition def = GetSkill(behaviour.Slot);
+            if (behaviour is IHeroSkillId skillId && def != null)
+            {
+                if (!string.IsNullOrEmpty(def.skillId) && def.skillId != skillId.SkillId)
+                    continue;
+            }
 
             behaviour.Initialize(this);
             behaviourBySlot[behaviour.Slot] = behaviour;

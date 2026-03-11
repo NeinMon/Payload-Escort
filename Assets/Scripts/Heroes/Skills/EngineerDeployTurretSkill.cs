@@ -1,9 +1,11 @@
 using UnityEngine;
 using Photon.Pun;
 
-public class EngineerDeployTurretSkill : HeroSkillBehaviour, IHeroHoldSkill
+public class EngineerDeployTurretSkill : HeroSkillBehaviour, IHeroHoldSkill, IHeroSkillId
 {
-    private const string SkillId = "engineer_deploy_turret";
+    private const string SkillIdConst = "engineer_deploy_turret";
+
+    public string SkillId => SkillIdConst;
     [Header("Turret Prefab")]
     [Tooltip("Prefab name inside Resources (e.g., TurretPrefab)")]
     public string turretResourceName = "Turret";
@@ -302,6 +304,6 @@ public class EngineerDeployTurretSkill : HeroSkillBehaviour, IHeroHoldSkill
     private bool IsCorrectSkill(HeroRuntime runtime)
     {
         HeroSkillDefinition def = runtime.GetSkill(HeroSkillSlot.E);
-        return def != null && def.skillId == SkillId;
+        return def != null && def.skillId == SkillIdConst;
     }
 }
